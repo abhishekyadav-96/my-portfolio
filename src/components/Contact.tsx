@@ -2,10 +2,32 @@
 
 import { Mail, Github, Linkedin, Instagram, Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import { submitContactForm } from "@/app/actions";
+
+const initialState = {
+  message: null,
+  errors: null,
+};
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button 
+      type="submit" 
+      aria-disabled={pending}
+      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {pending ? "Sending..." : "Send Message"}
+    </button>
+  );
+}
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
   const email = "abhinan888@gmail.com";
+  const [state, formAction] = useFormState(submitContactForm, initialState);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(email);
@@ -25,72 +47,79 @@ const Contact = () => {
               Currently available for new opportunities. Whether you have a project in mind or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
             
-            <div className="flex flex-col gap-4">
-              <a 
-                href={`mailto:${email}`}
-                className="inline-flex items-center gap-4 text-2xl font-bold text-white hover:text-blue-400 transition-colors group"
-                aria-label="Send email to Abhinandan"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-blue-500/50 transition-colors">
-                  <Mail className="w-6 h-6" />
-                </div>
-                {email}
-              </a>
-              
-              <button 
-                onClick={copyToClipboard}
-                className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors w-fit ml-20"
-                aria-label="Copy email to clipboard"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-green-500" />
-                    <span className="text-sm font-medium text-green-500">Copied to clipboard</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    <span className="text-sm font-medium">Click to copy email</span>
-                  </>
-                )}
-              </button>
-            </div>
+            <form action={formAction} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-zinc-400 mb-2">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+                  required 
+                />
+                {state.errors?.name && <p className="text-red-500 text-sm mt-1">{state.errors.name}</p>}
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-zinc-400 mb-2">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+                  required 
+                />
+                {state.errors?.email && <p className="text-red-500 text-sm mt-1">{state.errors.email}</p>}
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-zinc-400 mb-2">Message</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows={4} 
+                  className="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+                  required 
+                ></textarea>
+                {state.errors?.message && <p className="text-red-500 text-sm mt-1">{state.errors.message}</p>}
+              </div>
+              <SubmitButton />
+              {state.message && <p className="text-green-500 text-sm mt-4">{state.message}</p>}
+            </form>
+
+            <hr className="w-full border-zinc-800 my-12 lg:hidden" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <a 
-              href="https://github.com/abhishekyadav-96" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="glass p-8 flex flex-col items-center justify-center gap-4 hover:border-blue-500/50 transition-all group"
-              title="GitHub"
-            >
-              <Github className="w-8 h-8 text-zinc-400 group-hover:text-blue-400 transition-colors" />
-              <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">GitHub</span>
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/abhinandan-yadav-644006378/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="glass p-8 flex flex-col items-center justify-center gap-4 hover:border-blue-500/50 transition-all group"
-              title="LinkedIn"
-            >
-              <Linkedin className="w-8 h-8 text-zinc-400 group-hover:text-blue-400 transition-colors" />
-              <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">LinkedIn</span>
-            </a>
-            <a 
-              href="https://www.instagram.com/abhishekyadav___018/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="glass p-8 flex flex-col items-center justify-center gap-4 hover:border-blue-500/50 transition-all group"
-              title="Instagram"
-            >
-              <Instagram className="w-8 h-8 text-zinc-400 group-hover:text-blue-400 transition-colors" />
-              <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Instagram</span>
-            </a>
-            <div className="glass p-8 flex flex-col items-center justify-center gap-4 border-dashed border-zinc-800 opacity-50">
-              <span className="text-xs font-bold text-zinc-600 uppercase tracking-widest">More Soon</span>
-            </div>
+          <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-4">
+                <a 
+                  href={`mailto:${email}`}
+                  className="inline-flex items-center gap-4 text-2xl font-bold text-white hover:text-blue-400 transition-colors group"
+                  aria-label="Send email to Abhinandan"
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-blue-500/50 transition-colors">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  {email}
+                </a>
+                
+                <button 
+                  onClick={copyToClipboard}
+                  className="flex items-center gap-2 text-zinc-500 hover:text-zinc-300 transition-colors w-fit ml-20"
+                  aria-label="Copy email to clipboard"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm font-medium text-green-500">Copied to clipboard</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      <span className="text-sm font-medium">Click to copy email</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            
           </div>
         </div>
       </div>
