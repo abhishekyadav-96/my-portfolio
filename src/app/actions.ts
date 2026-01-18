@@ -1,6 +1,8 @@
 "use server";
 
 import { z } from "zod";
+import dbConnect from "@/lib/db";
+import Message from "@/models/Message";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -21,10 +23,17 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     };
   }
 
-  // Here you would typically send the email or save to a database
-  console.log("Form submitted successfully:", validatedFields.data);
+  try {
+    await dbConnect();
+    await Message.create(validatedFields.data);
 
-  return {
-    message: "Your message has been sent!",
-  };
+    return {
+      message: "Your message has been sent successfully!",
+    };
+  } catch (error) {
+    console.error("Database Error:", error);
+    return {
+      message: "Something went wrong. Please try again later.",
+    };
+  }
 }

@@ -1,14 +1,11 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Experience from "@/components/Experience";
-import Services from "@/components/Services";
-import TechStack from "@/components/TechStack";
-import Projects from "@/components/Projects";
-
-import Contact from "@/components/Contact";
-
-import { Github, Linkedin, Twitter, Instagram } from "lucide-react";
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Experience from "@/components/sections/Experience";
+import Services from "@/components/sections/Services";
+import TechStack from "@/components/sections/TechStack";
+import Projects from "@/components/sections/Projects";
+import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (

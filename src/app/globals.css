@@ -6,10 +6,15 @@
     --foreground: #fafafa;
     --accent: #3b82f6;
     --accent-glow: rgba(59, 130, 246, 0.15);
+    --font-sans: "Inter", sans-serif;
   }
 
   * {
     cursor: none;
+  }
+
+  body {
+    font-family: var(--font-sans);
   }
 }
 

@@ -1,17 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import Cursor from "@/components/Cursor";
-import Background from "@/components/Background";
+import CustomCursor from "@/components/layout/CustomCursor";
+import Background from "@/components/layout/Background";
+import ScrollProgress from "@/components/layout/ScrollProgress";
+import BackToTop from "@/components/layout/BackToTop";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const viewport: Viewport = {
@@ -66,6 +63,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "YOUR_GOOGLE_VERIFICATION_CODE", // Add your Google Search Console verification code here
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -80,11 +80,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Abhinandan",
+              "url": "https://abhinandan.dev",
+              "jobTitle": "MERN Stack Developer",
+              "description": "Senior MERN Stack Developer specializing in building high-performance, scalable full-stack applications.",
+              "sameAs": [
+                "https://github.com/your-username", // Update with your links
+                "https://linkedin.com/in/your-username"
+              ]
+            }),
+          }}
+        />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased bg-[#020617] text-white selection:bg-blue-500/30 selection:text-white`}>
+        <CustomCursor />
         <Background />
-        <Cursor />
+        <ScrollProgress />
+        <BackToTop />
         {children}
       </body>
     </html>

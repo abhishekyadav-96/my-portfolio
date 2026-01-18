@@ -1,8 +1,8 @@
 "use client";
 
 import { Mail, Github, Linkedin, Instagram, Copy, Check } from "lucide-react";
-import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useState, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { submitContactForm } from "@/app/actions";
 
 const initialState = {
@@ -27,7 +27,7 @@ function SubmitButton() {
 const Contact = () => {
   const [copied, setCopied] = useState(false);
   const email = "abhinan888@gmail.com";
-  const [state, formAction] = useFormState(submitContactForm, initialState);
+  const [state, formAction] = useActionState(submitContactForm, initialState);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(email);
