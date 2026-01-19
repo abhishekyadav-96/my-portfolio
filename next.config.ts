@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  // Netlify specific optimizations
+  output: 'standalone',
+  typescript: {
+    // Netlify sometimes fails on warnings, let's ensure it's strictly correct
+    ignoreBuildErrors: false,
+  },
 };
 
 export default nextConfig;
