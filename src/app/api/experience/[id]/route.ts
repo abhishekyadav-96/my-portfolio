@@ -4,12 +4,13 @@ import Experience from '@/models/Experience';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
   try {
+    const { id } = await params;
     const body = await request.json();
-    const experience = await Experience.findByIdAndUpdate(params.id, body, {
+    const experience = await Experience.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -24,11 +25,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
   try {
-    const deletedExperience = await Experience.deleteOne({ _id: params.id });
+    const { id } = await params;
+    const deletedExperience = await Experience.deleteOne({ _id: id });
     if (!deletedExperience) {
       return NextResponse.json({ success: false, error: 'Experience not found' }, { status: 404 });
     }

@@ -127,7 +127,7 @@ export default function AdminProjects() {
                     <Pencil className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={() => handleDelete(project._id)}
+                    onClick={() => handleDelete(project._id!)}
                     className="p-2 rounded-lg bg-zinc-800 text-zinc-400 hover:text-red-400 transition-colors"
                   >
                     <Trash2 className="w-5 h-5" />

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Save, User, Link as LinkIcon, Image as ImageIcon, CheckCircle } from "lucide-react";
+import { Save, User, Link as LinkIcon, Image as ImageIcon, CheckCircle, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { IHero } from "@/types";
 

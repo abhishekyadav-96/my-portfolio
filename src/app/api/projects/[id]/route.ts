@@ -5,10 +5,10 @@ import Project from '@/models/Project';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const body = await request.json();
@@ -20,17 +20,17 @@ export async function PUT(
       return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
     }
     return NextResponse.json({ success: true, data: project });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 400 });
   }
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const project = await Project.findByIdAndDelete(id);
@@ -38,7 +38,7 @@ export async function DELETE(
       return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
     }
     return NextResponse.json({ success: true, data: {} });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 400 });
   }
 }

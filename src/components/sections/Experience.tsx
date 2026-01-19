@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IExperience } from "@/types";
 
@@ -62,7 +62,7 @@ const Experience = () => {
     fetchExperience();
   }, []);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -72,7 +72,7 @@ const Experience = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, x: -30 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } }
   };

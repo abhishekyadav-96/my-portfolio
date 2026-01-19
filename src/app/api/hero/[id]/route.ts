@@ -4,12 +4,13 @@ import Hero from '@/models/Hero';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
   try {
+    const { id } = await params;
     const body = await request.json();
-    const hero = await Hero.findByIdAndUpdate(params.id, body, {
+    const hero = await Hero.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -24,11 +25,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
   try {
-    const deletedHero = await Hero.deleteOne({ _id: params.id });
+    const { id } = await params;
+    const deletedHero = await Hero.deleteOne({ _id: id });
     if (!deletedHero) {
       return NextResponse.json({ success: false, error: 'Hero not found' }, { status: 404 });
     }

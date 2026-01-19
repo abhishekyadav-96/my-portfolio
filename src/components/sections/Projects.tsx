@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { IProject } from "@/types";
 
 const Projects = () => {
@@ -23,16 +23,16 @@ const Projects = () => {
               title: "Modern E-Commerce Platform",
               description: "A high-performance storefront with real-time inventory and secure payments.",
               image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=2089&auto=format&fit=crop",
-              github: "https://github.com/abhishekyadav-96",
-              demo: "https://github.com/abhishekyadav-96",
+              githubUrl: "https://github.com/abhishekyadav-96",
+              liveUrl: "https://github.com/abhishekyadav-96",
               tags: ["Next.js", "Stripe", "MongoDB"]
             },
             {
               title: "Task Management SaaS",
               description: "Collaborative platform for teams with real-time updates and analytics.",
               image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-              github: "https://github.com/abhishekyadav-96",
-              demo: "https://github.com/abhishekyadav-96",
+              githubUrl: "https://github.com/abhishekyadav-96",
+              liveUrl: "https://github.com/abhishekyadav-96",
               tags: ["React", "Node.js", "Socket.io"]
             }
           ]);
@@ -43,16 +43,16 @@ const Projects = () => {
             title: "Modern E-Commerce Platform",
             description: "A high-performance storefront with real-time inventory and secure payments.",
             image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=2089&auto=format&fit=crop",
-            github: "https://github.com/abhishekyadav-96",
-            demo: "https://github.com/abhishekyadav-96",
+            githubUrl: "https://github.com/abhishekyadav-96",
+            liveUrl: "https://github.com/abhishekyadav-96",
             tags: ["Next.js", "Stripe", "MongoDB"]
           },
           {
             title: "Task Management SaaS",
             description: "Collaborative platform for teams with real-time updates and analytics.",
             image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-            github: "https://github.com/abhishekyadav-96",
-            demo: "https://github.com/abhishekyadav-96",
+            githubUrl: "https://github.com/abhishekyadav-96",
+            liveUrl: "https://github.com/abhishekyadav-96",
             tags: ["React", "Node.js", "Socket.io"]
           }
         ]);
@@ -62,7 +62,7 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -72,7 +72,7 @@ const Projects = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };

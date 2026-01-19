@@ -2,7 +2,7 @@
 
 import { Download, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IHero } from "@/types";
 
@@ -40,7 +40,7 @@ const Hero = () => {
       });
   }, []);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -51,7 +51,7 @@ const Hero = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };

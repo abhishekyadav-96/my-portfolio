@@ -4,12 +4,13 @@ import About from '@/models/About';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
   try {
+    const { id } = await params;
     const body = await request.json();
-    const about = await About.findByIdAndUpdate(params.id, body, {
+    const about = await About.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -24,11 +25,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   await dbConnect();
   try {
-    const deletedAbout = await About.deleteOne({ _id: params.id });
+    const { id } = await params;
+    const deletedAbout = await About.deleteOne({ _id: id });
     if (!deletedAbout) {
       return NextResponse.json({ success: false, error: 'About not found' }, { status: 404 });
     }

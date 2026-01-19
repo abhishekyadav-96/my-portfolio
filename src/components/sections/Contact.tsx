@@ -3,9 +3,9 @@
 import { Mail, Github, Linkedin, Instagram, Copy, Check } from "lucide-react";
 import { useState, useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { submitContactForm } from "@/app/actions";
+import { submitContactForm, type ContactFormState } from "@/app/actions";
 
-const initialState = {
+const initialState: ContactFormState = {
   message: null,
   errors: null,
 };

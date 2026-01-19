@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Plus, Pencil, Trash2, X, Save, Calendar, Building2, Briefcase, Tag, Image as ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Save, Calendar, Building2, Briefcase, Tag, Image as ImageIcon, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { IExperience } from "@/types";

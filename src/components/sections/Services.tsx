@@ -1,11 +1,11 @@
 "use client";
 
 import { Code2, Globe, Cpu, Smartphone, ShieldCheck, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IService } from "@/types";
 
-const iconMap = {
+const iconMap: Record<string, any> = {
   Globe,
   Code2,
   Zap,
@@ -66,7 +66,7 @@ const Services = () => {
     fetchServices();
   }, []);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -76,7 +76,7 @@ const Services = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
   };
