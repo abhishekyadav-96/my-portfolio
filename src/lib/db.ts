@@ -7,12 +7,6 @@ declare global {
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  );
-}
-
 let cached = global.mongoose;
 
 if (!cached) {
@@ -20,6 +14,15 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  if (!MONGODB_URI) {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('MONGODB_URI is not defined. Database connection will fail.');
+    }
+    // Only throw if we're actually trying to connect at runtime, 
+    // but don't crash the build process if possible.
+    throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
