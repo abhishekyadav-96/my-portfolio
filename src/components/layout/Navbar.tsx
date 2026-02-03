@@ -44,18 +44,19 @@ const Navbar = () => {
         <Link href="/" className="flex items-center gap-3 group" aria-label="Abhinandan Home">
           <motion.div 
             whileHover={{ rotate: 5, scale: 1.1 }}
-            className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group-hover:border-blue-500/50 transition-colors"
+            className="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-800 overflow-hidden relative group-hover:border-blue-500/50 transition-colors"
           >
             <Image
-              src={hero?.avatar || "/unnamed.jpg"}
-              alt={hero?.name || "Abhinandan"}
+              src="/logo.png"
+              alt="Logo"
               fill
-              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              className="object-contain p-1 group-hover:scale-110 transition-all duration-500"
             />
           </motion.div>
-          <span className="text-xl font-bold tracking-tighter accent-gradient" aria-hidden="true">
-            {hero?.name ? hero.name.split(' ').map(n => n[0]).join('') : "AY"}
-          </span>
+          <div className="text-2xl font-bold tracking-tight">
+             <span className="text-blue-500">Abhi</span>
+             <span className="text-zinc-100">nandan</span>
+          </div>
         </Link>
 
         {/* Navigation Links - Desktop */}

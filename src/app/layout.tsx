@@ -71,6 +71,11 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Abhinandan",
   },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
